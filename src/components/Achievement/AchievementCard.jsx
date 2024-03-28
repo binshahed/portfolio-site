@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import  { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fade from 'react-reveal/Fade';
