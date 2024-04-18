@@ -1,4 +1,4 @@
-import resume from "../assets/pdf/resume.pdf";
+import resume from "../assets/pdf/Shahed-FrontEnd-Developer.pdf";
 import profileImg from "../assets/png/dp2.jpg";
 
 export const headerData = {
