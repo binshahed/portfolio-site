@@ -9,7 +9,27 @@ import six from "../assets/svg/projects/six.svg";
 
 export const projectsData = [
   {
-    id: 1,
+    id: 8,
+    projectName: "Glob Track",
+    projectDesc:
+      "Glove Track is a comprehensive platform for travel enthusiasts, offering travel tips, destination guides, and interactive features for users to share their experiences. ",
+    tags: ["Next Js", "Next UI", "Tailwind"],
+    code: "",
+    demo: "https://globe-trek-client.vercel.app/",
+    image: three
+  },
+  {
+    id: 7,
+    projectName: "Car wash booking system",
+    projectDesc:
+      "The Auto Cleaning app allows users to browse and book a range of car wash and service options. Users can quickly locate the service they want, choose a suitable time slot, and confirm their reservation.",
+    tags: ["React", "ant design", "Redux", "RTK query"],
+    code: "",
+    demo: "https://car-wash-booking-system-client-opal.vercel.app/",
+    image: two
+  },
+  {
+    id: 6,
     projectName: "Nex Orion",
     projectDesc:
       "Nex Orion is a client side project, which create for a software firm",
@@ -19,7 +39,7 @@ export const projectsData = [
     image: one
   },
   {
-    id: 2,
+    id: 5,
     projectName: "Muscle Movers",
     projectDesc:
       "Muscle Movers is a comprehensive e-commerce platform designed for fitness enthusiasts. It offers a seamless shopping experience for fitness equipment and accessories.",
@@ -29,7 +49,7 @@ export const projectsData = [
     image: two
   },
   {
-    id: 3,
+    id: 4,
     projectName: "Shop.co",
     projectDesc:
       "This project aims to build an Personal Ecommerce project for portfolio",
@@ -39,7 +59,7 @@ export const projectsData = [
     image: three
   },
   {
-    id: 4,
+    id: 3,
     projectName: "Drone Fleet",
     projectDesc:
       "Full Stack Drone Project: Drone Fleet his is a Website About Selling Drone. The User can see all the available models and brands and order a Drone. The user is able to cancel their order at Before Shipping. ",
@@ -49,7 +69,7 @@ export const projectsData = [
     image: four
   },
   {
-    id: 5,
+    id: 2,
     projectName: "Tripo",
     projectDesc: `
       Tripo is a Tour agency app.
@@ -62,7 +82,7 @@ export const projectsData = [
     image: five
   },
   {
-    id: 6,
+    id: 1,
     projectName: "Care Now",
     projectDesc: `1. SignIn,Register using google and Email-Password 
       2. Make Appointment for treatment      
