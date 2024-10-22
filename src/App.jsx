@@ -10,6 +10,7 @@ import { Main, BlogPage, ProjectPage } from "./pages";
 import { BackToTop } from "./components";
 import ScrollToTop from "./utils/ScrollToTop";
 
+
 import "./App.css";
 
 function App() {

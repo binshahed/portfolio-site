@@ -1,4 +1,5 @@
-import   { useContext } from 'react';
+/* eslint-disable react/prop-types */
+import { useContext } from 'react';
 import { Button } from '@material-ui/core';
 import { NavHashLink as NavLink } from 'react-router-hash-link';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,8 +16,11 @@ import {
     FaYoutube,
     FaBlogger,
 } from 'react-icons/fa';
+import ImageSkeleton from '../common/ImageSkeleton'; // Image skeleton while loading
+import LineSkeleton from '../common/LineSkeleton';
 
-function Landing() {
+
+function Landing({ personalData, isLoading }) {
     const { theme, drawerOpen } = useContext(ThemeContext);
 
     const useStyles = makeStyles((t) => ({
@@ -142,52 +146,64 @@ function Landing() {
                         )}
                     </div>
                 </div>
-                <img
-                    src={headerData.image}
-                    alt=''
-                    className='landing--img'
-                    style={{
-                        opacity: `${drawerOpen ? '0' : '1'}`,
-                        borderColor: theme.secondary,
-                    }}
-                />
+
+                {/* Show skeleton or the actual image */}
+                {isLoading ? (
+                    <ImageSkeleton /> // Skeleton for image
+                ) : (
+                    <img
+                        src={personalData?.profilePicture}
+                        alt=''
+                        className='landing--img'
+                        style={{
+                            opacity: `${drawerOpen ? '0' : '1'}`,
+                            borderColor: theme.secondary,
+                        }}
+                    />
+                )}
+
                 <div
                     className='landing--container-right'
                     style={{ backgroundColor: theme.secondary }}
                 >
-                    <div
-                        className='lcr--content'
-                        style={{ color: theme.tertiary }}
-                    >
-                        <h6>{headerData.title}</h6>
-                        <h1>{headerData.name}</h1>
-                        <p>{headerData.desciption}</p>
+                    {/* Corrected skeleton logic */}
+                    {isLoading ? (
+                        <LineSkeleton/>
+                    ) : (
+                        <div
+                            className='lcr--content'
+                            style={{ color: theme.tertiary }}
+                        >
+                            <h6>{headerData.title}</h6>
+                            <h1>{personalData?.name}</h1>
+                            <p>{personalData?.bio}</p>
 
-                        <div className='lcr-buttonContainer'>
-                            {headerData.resumePdf && (
-                                <a
-                                    href={headerData.resumePdf}
-                                    download='resume'
-                                    target='_blank'
-                                    rel='noreferrer'
+                            <div className='lcr-buttonContainer'>
+                                {headerData.resumePdf && (
+                                    <a
+                                        href={headerData.resumePdf}
+                                        download='resume'
+                                        target='_blank'
+                                        rel='noreferrer'
+                                    >
+                                        <Button className={classes.resumeBtn}>
+                                            Download CV
+                                        </Button>
+                                    </a>
+                                )}
+                                <NavLink
+                                    to='/#contacts'
+                                    smooth={true}
+                                    spy='true'
+                                    duration={2000}
                                 >
-                                    <Button className={classes.resumeBtn}>
-                                        Download CV
+                                    <Button className={classes.contactBtn}>
+                                        Contact
                                     </Button>
-                                </a>
-                            )}
-                            <NavLink
-                                to='/#contacts'
-                                smooth={true}
-                                spy='true'
-                                duration={2000}
-                            >
-                                <Button className={classes.contactBtn}>
-                                    Contact
-                                </Button>
-                            </NavLink>
+                                </NavLink>
+                            </div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

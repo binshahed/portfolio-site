@@ -1,0 +1,21 @@
+/* Skeleton.css */
+.round-skeleton {
+    border-radius: 50%;
+    background-color: #0ed15f62;
+    animation: skeleton-loading 1.2s infinite ease-in-out;
+  }
+  
+  @keyframes skeleton-loading {
+    0% {
+      background-color: #4dfd5c;
+    }
+    50% {
+      background-color: #0ab334;
+    }
+    100% {
+      background-color: #036814;
+    }
+  }
+  
+
+  
