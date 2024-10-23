@@ -6,6 +6,7 @@
     min-height: 100vh;
     overflow-x: hidden;
     padding: 2rem;
+    padding: 0 10%;
 }
 
 
@@ -33,11 +34,11 @@
 }
 
 .projects--bodyContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4.5rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+    gap: 2rem;
     width: 100%;
+    justify-content: center;
 }
 
 .projects--viewAll {
@@ -81,6 +82,9 @@
         justify-content: center;
         width: 100%;
     }
+    .projects--bodyContainer {
+        grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablet size */
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -103,6 +107,9 @@
         position: absolute;
         left: 50%;
         transform: translateX(-50%);  
+    }
+    .projects--bodyContainer {
+        grid-template-columns: 1fr; /* 1 card per row on mobile size */
     }
 }
 

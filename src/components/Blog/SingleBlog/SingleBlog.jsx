@@ -6,10 +6,14 @@ import placeholder from '../../../assets/png/placeholder.png'
 import './SingleBlog.css'
 import { Link } from 'react-router-dom';
 
-function SingleBlog({ theme, title, desc, date, image, url, id }) {
+function SingleBlog({ theme, title,  date, image, url, id }) {
 
     const maxWords = 30;
 const truncatedDate = date.split(" ").slice(0, maxWords).join(" ") + ".....";
+const slugData = title.split(" ").slice(0, 10).join(" ") + ".....";
+
+
+
     return (
         <Fade bottom>
             <Link to={url} className="singleBlog" key={id}  style={{backgroundColor: theme.primary400}}>
@@ -18,8 +22,8 @@ const truncatedDate = date.split(" ").slice(0, maxWords).join(" ") + ".....";
                 </div>
                 <div className="singleBlog--body">
                     
-                    <h3 style={{color: theme.secondary}}>{title}</h3>
-                    <h6 style={{color: theme.secondary}}>{desc}</h6>
+                    <h3 style={{color: theme.secondary}}>{slugData}</h3>
+                    {/* <h6 style={{color: theme.secondary}}>{slugData}</h6> */}
                     {/* <p style={{color: theme.tertiary}}>{date}</p> */}
                     <div
                         dangerouslySetInnerHTML={{__html: truncatedDate}}

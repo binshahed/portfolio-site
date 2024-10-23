@@ -1,6 +1,6 @@
 .singleProject {
     box-shadow: 4px 4px 8px rgba(36, 3, 3, 0.2);
-    width: 304px;
+    /* width: 304px; */
     height: 360px;
     border-radius: 10px;
     display: flex;

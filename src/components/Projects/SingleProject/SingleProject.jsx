@@ -49,7 +49,7 @@ function SingleProject({ id, name, desc, tags, code, demo, image, theme }) {
                         id={name.replace(' ', '-').toLowerCase()}
                         style={{ color: theme.tertiary }}
                     >
-                         <Link to={`/projects/${id}`}>
+                         <Link to={`/projects/${id}`} style={{color:'#000'}}>
                         {name}</Link>
                     </h2>
                    
