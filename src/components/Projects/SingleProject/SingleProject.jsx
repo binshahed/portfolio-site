@@ -1,13 +1,15 @@
-  ;
+/* eslint-disable react/prop-types */
+  
 import { makeStyles } from '@material-ui/core/styles';
 import { FaPlay, FaCode } from 'react-icons/fa';
 import Fade from 'react-reveal/Fade';
 
 import placeholder from '../../../assets/png/placeholder.png';
 import './SingleProject.css';
+import { Link } from 'react-router-dom';
 
 function SingleProject({ id, name, desc, tags, code, demo, image, theme }) {
-    const useStyles = makeStyles((t) => ({
+    const useStyles = makeStyles(() => ({
         iconBtn: {
             display: 'flex',
             alignItems: 'center',
@@ -42,12 +44,15 @@ function SingleProject({ id, name, desc, tags, code, demo, image, theme }) {
                 style={{ backgroundColor: theme.primary400 }}
             >
                 <div className='projectContent'>
-                    <h2
+                  
+                   <h2
                         id={name.replace(' ', '-').toLowerCase()}
                         style={{ color: theme.tertiary }}
                     >
-                        {name}
+                         <Link to={`/projects/${id}`}>
+                        {name}</Link>
                     </h2>
+                   
                     <img src={image ? image : placeholder} alt={name} />
                     <div className='project--showcaseBtn'>
                         <a

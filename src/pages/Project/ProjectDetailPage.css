@@ -1,0 +1,131 @@
+.projectDetailPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* padding: 2rem; */
+    background-color: var(--background-color);
+}
+
+.projectDetailPage--header {
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.projectDetailPage--header h1{
+    font-size: 3rem;
+    font-family: var(--primaryFont);
+}
+
+.homeIcon {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    font-size: 2rem;
+    color: var(--secondary-color);
+    transition: transform 0.2s;
+}
+
+.homeIcon:hover {
+    transform: scale(1.1);
+}
+
+.projectDetailPage--container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.projectDetailPage--content {
+    width: 100%;
+    background-color: var(--secondary-color);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.projectDetailPage--content:hover {
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.projectDetailImage {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.techStack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1rem;
+    justify-content: center;
+}
+
+.techBadge {
+    background-color: #333;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.techBadge:hover {
+    background-color: var(--primary-color);
+}
+
+.projectDescription {
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.projectDetailLinks {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: center;
+}
+
+.projectLink {
+    font-size: 1.1rem;
+    color: white;
+    background-color: var(--primary-color);
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.projectLink:hover {
+    background-color: var(--hover-primary-color);
+}
+
+@media (max-width: 768px) {
+    .projectDetailPage--content {
+        padding: 1.5rem;
+    }
+
+    .techBadge {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+
+    .projectLink {
+        font-size: 1rem;
+    }
+}

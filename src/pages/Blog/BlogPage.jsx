@@ -8,19 +8,21 @@ import { AiOutlineHome } from "react-icons/ai";
 import './BlogPage.css'
 import { SingleBlog } from '../../components'
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { blogData } from '../../data/blogData'
 import { headerData } from '../../data/headerData'
+import { useEffect } from 'react';
+import axiosInstance from '../../axiosInstance';
+import { toast } from 'sonner';
+import LineSkeleton from '../../components/common/LineSkeleton';
 
 function BlogPage() {
 
     const [search, setSearch] = useState('')
     const { theme } = useContext(ThemeContext);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
-    const filteredArticles = blogData.filter((blog) => {
-        const content = blog.title + blog.description + blog.date
-        return content.toLowerCase().includes(search.toLowerCase())
-    })
-
+   
 
     const useStyles = makeStyles((t) => ({
         search : {
@@ -68,6 +70,30 @@ function BlogPage() {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axiosInstance.get('/blogs'); // Replace with your endpoint
+            setData(response.data);
+          } catch (err) {
+            setError('Error fetching data');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
+      const filteredArticles = data?.data?.filter((blog) => {
+        const content = blog?.title + blog?.slug + blog?.content
+        return content.toLowerCase().includes(search.toLowerCase())
+    })
+
+    
+     
+      if (error) return toast.err('Something went wrong')
+
     return (
         <div className="blogPage" style={{backgroundColor: theme.secondary}}>
             <Helmet>
@@ -85,17 +111,21 @@ function BlogPage() {
                 </div>
                 <div className="blogs--container">
                     <Grid className="blog-grid" container direction="row" alignItems="center" justifyContent="center">
-                        {filteredArticles.reverse().map(blog => (
-                            <SingleBlog 
-                                theme={theme}
-                                title={blog.title}
-                                desc={blog.description}
-                                date={blog.date}
-                                image={blog.image}
-                                url={blog.url}
-                                key={blog.id}
-                                id={blog.id}
-                            />
+                        {loading ? <>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                    </> : filteredArticles.reverse().map(blog => (
+                             <SingleBlog 
+                             theme={theme}
+                             title={blog.title}
+                             desc={blog.slug}
+                             date={blog.content}
+                             image={blog.featuredImage}
+                             url={`blog/${blog?._id}`}
+                             key={blog._id}
+                             id={blog._id}
+                         />
                         ))}
                     </Grid>
                 </div>

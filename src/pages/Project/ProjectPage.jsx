@@ -8,18 +8,24 @@ import { AiOutlineHome } from "react-icons/ai";
 import './ProjectPage.css'
 import { SingleProject } from '../../components';
 import { ThemeContext } from '../../contexts/ThemeContext';
-import { projectsData } from '../../data/projectsData'
 import { headerData } from '../../data/headerData'
+import { useEffect } from 'react';
+import axiosInstance from '../../axiosInstance';
+import { toast } from 'sonner';
+import LineSkeleton from '../../components/common/LineSkeleton';
 
 function ProjectPage() {
 
     const [search, setSearch] = useState('')
     const { theme } = useContext(ThemeContext);
 
-    const filteredArticles = projectsData.filter((project) => {
-        const content = project.projectName + project.projectDesc + project.tags
-        return content.toLowerCase().includes(search.toLowerCase())
-    })
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+   
+
+  
 
     const useStyles = makeStyles((t) => ({
         search : {
@@ -67,6 +73,34 @@ function ProjectPage() {
 
     const classes = useStyles();
 
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axiosInstance.get('/projects'); // Replace with your endpoint
+            setData(response.data?.data);
+          } catch (err) {
+            setError('Error fetching data');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
+
+      const filteredArticles = data?.filter((blog) => {
+        const content = blog?.name + blog?.description
+        return content.toLowerCase().includes(search.toLowerCase())
+    })
+
+    
+     
+      if (error) return toast.err('Something went wrong')
+        console.log(data);
+        
+
+
     return (
         <div className="projectPage" style={{backgroundColor: theme.secondary}}>
             <Helmet>
@@ -84,18 +118,22 @@ function ProjectPage() {
                </div>
                <div className="project-container">
                    <Grid className="project-grid" container direction="row" alignItems="center" justifyContent="center">
-                        {filteredArticles.map(project => (
-                            <SingleProject
-                                theme={theme}
-                                key={project.id}
-                                id={project.id}
-                                name={project.projectName}
-                                desc={project.projectDesc}
-                                tags={project.tags}
-                                code={project.code}
-                                demo={project.demo}
-                                image={project.image} 
-                            />
+                   {loading ? <>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                    </> :filteredArticles.map(project => (
+                             <SingleProject
+                             theme={theme}
+                             key={project._id}
+                             id={project._id}
+                             name={project.name}
+                             desc={project.description}
+                             tags={project.technology}
+                             code={project.clientGitLink}
+                             demo={project.liveLink}
+                             image={project.imageUrl}
+                         />
                         ))}
                    </Grid>
                </div>

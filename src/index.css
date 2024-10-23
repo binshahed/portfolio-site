@@ -17,6 +17,9 @@
   margin: 0;
   box-sizing: border-box;
 }
+body{
+  background-color: rgb(33, 33, 33);
+}
 
 a {
   text-decoration: none;

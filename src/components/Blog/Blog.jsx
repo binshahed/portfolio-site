@@ -7,11 +7,20 @@ import './Blog.css';
 import { ThemeContext } from '../../contexts/ThemeContext';
 import { blogData } from '../../data/blogData'
 import SingleBlog from './SingleBlog/SingleBlog';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axiosInstance from '../../axiosInstance';
+import { toast } from 'sonner';
+import LineSkeleton from '../common/LineSkeleton';
 
 
 function Blog() {
 
     const { theme } = useContext(ThemeContext);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+  
 
     const useStyles = makeStyles(() => ({
         viewAllBtn : {
@@ -40,25 +49,48 @@ function Blog() {
 
     const classes = useStyles();
 
+    
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axiosInstance.get('/blogs'); // Replace with your endpoint
+            setData(response.data);
+          } catch (err) {
+            setError('Error fetching data');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
+    
+     
+      if (error) return toast.err('Something went wrong')
+
     return (
         <>
-            {blogData.length > 0 && (
+            {data?.data?.length > 0 && (
                 <div className="blog" id="blog" style={{backgroundColor: theme.secondary}}>
                     <div className="blog--header">
                         <h1 style={{color: theme.primary}}>Blog</h1>
                     </div>
                     <div className="blog--body">
                         <div className="blog--bodyContainer">
-                            {blogData.slice(0, 3).reverse().map(blog => (
+                        {loading ? <>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                    </> : data?.data?.slice(0, 6).map(blog => (
                                 <SingleBlog 
                                     theme={theme}
                                     title={blog.title}
-                                    desc={blog.description}
-                                    date={blog.date}
-                                    image={blog.image}
-                                    url={blog.url}
-                                    key={blog.id}
-                                    id={blog.id}
+                                    desc={blog.slug}
+                                    date={blog.content}
+                                    image={blog.featuredImage}
+                                    url={`blog/${blog?._id}`}
+                                    key={blog._id}
+                                    id={blog._id}
                                 />
                             ))}
                         </div> 

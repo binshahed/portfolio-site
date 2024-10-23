@@ -17,6 +17,7 @@ import {
 import { headerData } from "../../data/headerData";
 import { useEffect, useState } from "react";
 import axiosInstance from './../../axiosInstance/index';
+import { toast } from "sonner";
 
 function Main() {
 
@@ -40,9 +41,9 @@ function Main() {
   }, []);
 
  
-  if (error) return <div>{error}</div>
+  if (error) return toast.err('Something went wrong')
 
-  console.log(data?.data);
+ 
   
 
   return (

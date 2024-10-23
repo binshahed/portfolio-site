@@ -8,10 +8,21 @@ import { HiArrowRight } from "react-icons/hi";
 
 import './Projects.css'
 import SingleProject from './SingleProject/SingleProject';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import axiosInstance from '../../axiosInstance';
+import { toast } from 'sonner';
+import LineSkeleton from '../common/LineSkeleton';
 
 function Projects() {
 
     const { theme } = useContext(ThemeContext);
+
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+  
+   
 
     
     const useStyles = makeStyles(() => ({
@@ -43,6 +54,24 @@ function Projects() {
 
     const classes = useStyles();
 
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const response = await axiosInstance.get('/projects'); // Replace with your endpoint
+            setData(response.data);
+          } catch (err) {
+            setError('Error fetching data');
+          } finally {
+            setLoading(false);
+          }
+        };
+    
+        fetchData();
+      }, []);
+    
+     
+      if (error) return toast.err('Something went wrong')
+
     return (
         <>
             {projectsData.length > 0 && (
@@ -52,17 +81,21 @@ function Projects() {
                     </div>
                     <div className="projects--body">
                         <div className="projects--bodyContainer">
-                            {projectsData.slice(0, 3).map(project => (
+                        {loading ? <>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                      <LineSkeleton/>
+                    </> : data?.data?.slice(0, 6).map(project => (
                                 <SingleProject
                                     theme={theme}
-                                    key={project.id}
-                                    id={project.id}
-                                    name={project.projectName}
-                                    desc={project.projectDesc}
-                                    tags={project.tags}
-                                    code={project.code}
-                                    demo={project.demo}
-                                    image={project.image}
+                                    key={project._id}
+                                    id={project._id}
+                                    name={project.name}
+                                    desc={project.description}
+                                    tags={project.technology}
+                                    code={project.clientGitLink}
+                                    demo={project.liveLink}
+                                    image={project.imageUrl}
                                 />
                             ))}
                         </div> 
